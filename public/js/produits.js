@@ -1,9 +1,5 @@
-async function chargerProduits() {
-  const response = await fetch('http://localhost:3000/produits');
-  const produits = await response.json();
-
-  const container = document.getElementById('produits-container');
-
+function afficherProduits(produits) {
+  const container = document.getElementById('produits-container')
   produits.forEach(produit => {
     container.innerHTML += `
       <div class="carte-produit">
@@ -13,7 +9,5 @@ async function chargerProduits() {
         <button>Commander</button>
       </div>
     `
-  });
-};
-
-chargerProduits();
+  })
+}
