@@ -1,7 +1,8 @@
-let panier = JSON.parse(localStorage.getItem('panier')) || []
+let panier = JSON.parse(localStorage.getItem('panier')) || [];
 
-function ajouterAuPanier(produit) {
-  const produitExistant = panier.find(p => p.id === produit.id)
+function ajouterAuPanier(id) {
+  const produit = produits.find(p => p.id === id)
+  const produitExistant = panier.find(p => p.id === id)
 
   if (produitExistant) {
     produitExistant.quantite += 1
@@ -11,6 +12,17 @@ function ajouterAuPanier(produit) {
 
   localStorage.setItem('panier', JSON.stringify(panier))
   afficherPanier()
+};
+
+function supprimerDuPanier(id) {
+  panier = panier.filter(article => article.id !== id);
+
+  localStorage.setItem('panier', JSON.stringify(panier))
+  afficherPanier()
+};
+
+function augmenterQuantite(id) {
+  
 }
 
 function afficherPanier() {
@@ -29,9 +41,10 @@ function afficherPanier() {
         <span>${p.nom}</span>
         <span>x${p.quantite}</span>
         <span>${(p.prix * p.quantite).toFixed(2)} €</span>
+        <button onclick="supprimerDuPanier(${p.id})">❌</button>
       </div>
     `
   }).join('')
 
   container.innerHTML += `<div class="panier-total">Total : ${total.toFixed(2)} €</div>`
-}
+};
