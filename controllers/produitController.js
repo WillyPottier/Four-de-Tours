@@ -1,4 +1,3 @@
-const { create } = require('domain');
 const Produit = require('../models/Produit');
 
 const produitController = {
@@ -42,7 +41,7 @@ const produitController = {
   delete: async (req, res) => {
     try {
       await Produit.delete(req.params.id);
-      res.json(produit);
+      res.json({ message: 'Produit supprimé' });
     } catch (error) {
       res.status(500).json({ message: 'Erreur serveur', error: error.message });
     }

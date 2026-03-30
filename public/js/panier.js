@@ -21,6 +21,10 @@ function supprimerDuPanier(id) {
   afficherPanier()
 };
 
+function augmenterQuantite(id) {
+  
+}
+
 function afficherPanier() {
   const container = document.getElementById('panier-container')
   
