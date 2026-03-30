@@ -30,7 +30,7 @@ const authController = {
                 return res.status(401).json({ message: 'Email ou mot de passe incorrect' });
             }
 
-            const motDePasseValide = await bcrypt.compare(mot_de_passe, user.mot_de_passe)
+            const motDePasseValide = await bcrypt.compare(mot_de_passe, user.motDePasse)
             if (!motDePasseValide) {
                 return res.status(401).json({ message: 'Email ou mot de passe incorrect' });
             }

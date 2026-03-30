@@ -1,29 +1,35 @@
-const pool = require('../db/connexion');
-const { findById } = require('./Produit');
+// models/User.js
+const prisma = require('../db/connexion');
 
 const User = {
     create: async (nom, email, motDePasse) => {
-        const [result] = await pool.query(
-            'INSERT INTO users (nom, email, mot_de_passe) VALUES (?, ?, ?)',
-            [nom, email, motDePasse]
-        )
-        return result.insertId;
+        const user = await prisma.user.create({
+            data: {
+                nom,
+                email,
+                motDePasse
+            }
+        });
+        return user.id;
     },
 
     findByEmail: async (email) => {
-        const [rows] = await pool.query(
-            'SELECT * FROM users WHERE email = ?',
-            [email]
-        )
-        return rows[0];
+        return await prisma.user.findUnique({
+            where: { email }
+        });
     },
 
     findById: async (id) => {
-        const [rows] = await pool.query(
-            'SELECT id, nom, email, role, created_at FROM users WHERE id = ?',
-            [id]
-        )
-        return rows[0];
+        return await prisma.user.findUnique({
+            where: { id: parseInt(id) },
+            select: {
+                id:        true,
+                nom:       true,
+                email:     true,
+                role:      true,
+                createdAt: true
+            }
+        });
     }
 };
 

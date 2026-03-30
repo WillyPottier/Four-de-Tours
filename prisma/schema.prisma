@@ -35,6 +35,7 @@ model Commande {
   id               Int              @id @default(autoincrement())
   userId           Int              @map("user_id")
   statut           Statut           @default(en_attente)
+  modeLivraison    ModeLivraison   @map("mode_livraison")
   total            Decimal          @db.Decimal(10,2)
   adresseLivraison String?          @map("adresse_livraison")
   createdAt        DateTime         @default(now()) @map("created_at")
@@ -61,11 +62,18 @@ enum Role {
   admin
 }
 
+enum ModeLivraison {
+  livraison
+  retrait
+}
+
 enum Statut {
   en_attente
   confirmee
   en_preparation
   prete
+  expediee
   livree
+  retiree
   annulee
 }
