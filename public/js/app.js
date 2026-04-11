@@ -1,6 +1,9 @@
+let produits = [];
+
 async function init() {
-  const produits = await getProduits()
+  produits = await getProduits()
   afficherProduits(produits)
+  afficherPanier()
 }
 
 init()

@@ -6,7 +6,7 @@ function afficherProduits(produits) {
         <h3>${produit.nom}</h3>
         <p>${produit.description}</p>
         <span>${produit.prix} €</span>
-        <button>Commander</button>
+        <button onclick='ajouterAuPanier(${produit.id})'>Commander</button>
       </div>
     `
   })

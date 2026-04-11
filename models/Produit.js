@@ -1,14 +1,39 @@
-const pool = require('../db/connexion');
+const prisma = require('../db/connexion');
 
 const Produit = {
     findAll: async () => {
-        const [rows] = await pool.query('SELECT * FROM produits');
-        return rows;
+        return await prisma.produit.findMany();
     },
 
     findById: async (id) => {
-        const [rows] = await pool.query('SELECT * FROM produits WHERE id = ?', [id]);
-        return rows[0];
+        return await prisma.produit.findUnique({
+            where: { id: parseInt(id) }
+        });
+    },
+
+    create: async (data) => {
+        return await prisma.produit.create({
+            data: {
+                nom: data.nom,
+                description: data.description,
+                prix: data.prix,
+                image: data.image,
+                disponible: data.disponible ?? true
+            }
+        });
+    },
+
+    update: async (id, data) => {
+        return await prisma.produit.update({
+            where: { id: parseInt(id) },
+            data
+        });
+    },
+
+    delete: async (id) => {
+        return await prisma.produit.delete({
+            where: { id: parseInt(id) }
+        });
     }
 };
 
