@@ -43,6 +43,11 @@ function baisserQuantite(id) {
   afficherPanier()
 };
 
+function toggleAdresse(mode) {
+  const container = document.getElementById('adresse-container')
+  container.style.display = mode === 'livraison' ? 'block' : 'none'
+};
+
 function afficherPanier() {
   const container = document.getElementById('panier-container')
   
@@ -66,5 +71,22 @@ function afficherPanier() {
     `
   }).join('')
 
-  container.innerHTML += `<div class="panier-total">Total : ${total.toFixed(2)} €</div>`
+  container.innerHTML += `
+  <div class="panier-total">Total : ${total.toFixed(2)} €</div>
+  
+  <div class="commande-form">
+    <label>
+      <input type="radio" name="modeLivraison" value="retrait" checked onchange="toggleAdresse(this.value)"> Retrait
+    </label>
+    <label>
+      <input type="radio" name="modeLivraison" value="livraison" onchange="toggleAdresse(this.value)"> Livraison
+    </label>
+    
+    <div id="adresse-container" style="display:none">
+      <input type="text" id="adresse-input" placeholder="Votre adresse de livraison"/>
+    </div>
+
+    <button onclick="passerCommande()">Valider la commande</button>
+  </div>
+  `
 };
