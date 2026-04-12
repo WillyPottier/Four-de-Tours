@@ -11,6 +11,7 @@ function basculerFormulaire() {
   }
 };
 
+//Fonction pour se connecter
 async function seConnecter() {
   const email = document.getElementById('email-connexion').value
   const password = document.getElementById('password-connexion').value
@@ -29,6 +30,15 @@ async function seConnecter() {
   window.location.href = 'profil.html'
 };
 
+//Fonction pour se déconnecter
+function seDeconnecter() {
+  localStorage.removeItem('token')
+  localStorage.removeItem('user')
+  window.location.href = 'connexion.html'
+};
+
+
+//Fonction pour s'inscrire
 async function sInscrire() {
   const nom = document.getElementById('nom-inscription').value
   const email = document.getElementById('email-inscription').value

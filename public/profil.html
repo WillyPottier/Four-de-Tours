@@ -10,16 +10,16 @@
     <aside>
         <div id="profil-container"></div>
     </aside>
+    <button type="button" onclick="seDeconnecter()">Se déconnecter</button>
     
+    <script src="./js/api.js"></script>
+    <script src="./js/auth.js"></script>
+    <script src="./js/profil.js"></script>
     <script>
         const token = localStorage.getItem('token');
-        if (token) {
-            
-        } else {
+        if (!token) {
            window.location.href = 'connexion.html'
         }
     </script>
-    <script src="./js/api.js"></script>
-    <script src="./js/profil.js"></script>
 </body>
 </html>

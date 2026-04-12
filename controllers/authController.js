@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
 const authController = {
-    inscription: async (req, res) => {
+    inscription: async (req, res, next) => {
         try {
             const { nom, email, mot_de_passe } = req.body;
 
@@ -17,11 +17,11 @@ const authController = {
 
             res.status(201).json({ message: 'Compte créé', id })
         } catch (error) {
-            res.status(500).json({ message: 'Erreur serveur', error: error.message })
+            next(error);
         }
     },
 
-    connexion: async (req, res) => {
+    connexion: async (req, res, next) => {
         try {
             const { email, mot_de_passe } = req.body;
 
@@ -43,17 +43,17 @@ const authController = {
 
             res.json({ token, nom: user.nom, role: user.role });
         } catch (error) {
-            res.status(500).json({ message: 'Erreur serveur', error: error.message });
+            next(error);
         }
     },
 
-    profil: async (req, res) => {
+    profil: async (req, res, next) => {
         try {
             const user = await User.findById(req.user.id)
             if (!user) return res.status(404).json({ message: 'Utilisateur non trouvé' })
             res.json(user)
         } catch (error) {
-        res.status(500).json({ message: 'Erreur serveur', error: error.message })
+        next(error);
         }
     }
 };
