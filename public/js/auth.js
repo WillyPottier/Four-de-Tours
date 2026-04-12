@@ -9,22 +9,16 @@ function basculerFormulaire() {
     connexion.style.display = 'none'
     inscription.style.display = 'block'
   }
-}
+};
 
 async function seConnecter() {
   const email = document.getElementById('email-connexion').value
   const password = document.getElementById('password-connexion').value
   const erreur = document.getElementById('erreur-connexion')
 
-  const response = await fetch('http://localhost:3000/auth/connexion', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email, mot_de_passe: password })
-  })
+  const data = await getConnexion(email, password)
 
-  const data = await response.json()
-
-  if (!response.ok) {
+  if (!data.token) {
     erreur.textContent = data.message
     return
   }
@@ -33,7 +27,7 @@ async function seConnecter() {
   localStorage.setItem('user', JSON.stringify({ nom: data.nom, role: data.role }))
 
   window.location.href = 'profil.html'
-}
+};
 
 async function sInscrire() {
   const nom = document.getElementById('nom-inscription').value
@@ -41,19 +35,13 @@ async function sInscrire() {
   const password = document.getElementById('password-inscription').value
   const erreur = document.getElementById('erreur-inscription')
 
-  const response = await fetch('http://localhost:3000/auth/inscription', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ nom, email, mot_de_passe: password })
-  })
+  const data = await getInscription(nom, email, password)
 
-  const data = await response.json()
-
-  if (!response.ok) {
+  if (!data.message === 'Compte créé') {
     erreur.textContent = data.message
     return
   }
 
   alert('Compte créé ! Connecte-toi maintenant.')
   basculerFormulaire()
-}
+};

@@ -1,6 +1,7 @@
-let user = JSON.parse(localStorage.getItem('user')) || null;
+let user = null;
 
-function afficherProfil() {
+async function afficherProfil() {
+    const user = await getProfil();
     const container = document.getElementById('profil-container');
 
     container.innerHTML = `
