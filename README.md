@@ -38,7 +38,7 @@ Application e-commerce pour une boulangerie, développée en Vanilla JS / Node.j
 ## Installation
 
 ```bash
-git clone https://github.com/ton-user/four-de-tours.git
+git clone https://github.com/WillyPottier/four-de-tours.git
 cd four-de-tours
 npm install
 ```
