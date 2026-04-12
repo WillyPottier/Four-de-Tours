@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const errorHandler = require('./middlewares/errorHandler');
 
 app.use(express.json());
 app.use(express.static('public'));
@@ -13,5 +14,7 @@ app.use('/auth', authRouter);
 app.get('/', (req, res) => {
     res.json({ message: 'Four de Tours API - OK'})
 });
+
+app.use(errorHandler);
 
 module.exports = app;

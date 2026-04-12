@@ -1,49 +1,49 @@
 const Produit = require('../models/Produit');
 
 const produitController = {
-  getAll: async (req, res) => {
+  getAll: async (req, res, next) => {
     try {
       const produits = await Produit.findAll();
       res.json(produits);
     } catch (error) {
-      res.status(500).json({ message: 'Erreur serveur', error: error.message });
+      next(error);
     }
   },
 
-  getOne: async (req, res) => {
+  getOne: async (req, res, next) => {
     try {
       const produit = await Produit.findById(req.params.id);
       if (!produit) return res.status(404).json({ message: 'Produit non trouvé' })
       res.json(produit);
     } catch (error) {
-      res.status(500).json({ message: 'Erreur serveur', error: error.message });
+      next(error);
     }
   },
 
-  create: async (req, res) => {
+  create: async (req, res, next) => {
     try {
       const produit = await Produit.create(req.body);
       res.status(201).json(produit);
     } catch (error) {
-      res.status(500).json({ message: 'Erreur serveur', error: error.message });
+      next(error);
     }
   },
 
-  update: async (req, res) => {
+  update: async (req, res, next) => {
     try {
       const produit = await Produit.update(req.params.id, req.body);
       res.json(produit);
     } catch (error) {
-      res.status(500).json({ message: 'Erreur serveur', error: error.message });
+      next(error);
     }
   },
 
-  delete: async (req, res) => {
+  delete: async (req, res, next) => {
     try {
       await Produit.delete(req.params.id);
       res.json({ message: 'Produit supprimé' });
     } catch (error) {
-      res.status(500).json({ message: 'Erreur serveur', error: error.message });
+      next(error);
     }
   }
 };
